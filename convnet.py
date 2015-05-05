@@ -3,8 +3,6 @@
 # The convolutional network that implements Q-Learning on
 # the pole balancing game.
 # 
-# Input: a stack of images
-# 
 ############################################################
 
 import Image, time

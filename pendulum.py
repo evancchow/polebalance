@@ -261,43 +261,43 @@ def reward(state):
     if abs(state[2])>=ALPHA_LIM*(1-REWARD_HYSTERISIS):
         return -1
     return 0
-        
-# Code       
-display = Display()
-pendulum = Pendulum()
-pendulum.randomize()
-key_controller = KeyController(display)
-pid_controller = PidController()
-display.attach_model(pendulum)
-#display.attach_controller(pid_controller) # comment to disable pid controller
-display.attach_controller(key_controller)
 
-rl_linear_controller = RlLinearController()
-display.attach_controller(rl_linear_controller)
-regressor = Normalizer(SVR(C=0.01), np.array([WIDTH, WIDTH*10e1 , math.pi*0.6, math.pi*0.6*10e1]))
-rl_linear_controller.learn_values(pendulum, regressor,#RandomForestRegressor(n_estimators=64), 
-                                  reward, gamma=0.995, num_samples=1000, iterations=32)
-#%% Plot values
-values = np.array([[rl_linear_controller.learner.predict([x,0,alpha,0])[0] 
-for x in np.arange(0,WIDTH,WIDTH/50)] for alpha in np.arange(-math.pi/2,math.pi/2,math.pi/50)])
+if __name__=="__main__":
+    # Code       
+    display = Display()
+    pendulum = Pendulum()
+    pendulum.randomize()
+    key_controller = KeyController(display)
+    pid_controller = PidController()
+    display.attach_model(pendulum)
+    # display.attach_controller(pid_controller) # comment to disable pid controller
+    # display.attach_controller(key_controller)
 
-plt.subplot(131)
-plt.imshow(values,interpolation='nearest')
-plt.xlabel('x')
-plt.ylabel('alpha')
+    rl_linear_controller = RlLinearController()
+    display.attach_controller(rl_linear_controller)
+    regressor = Normalizer(SVR(C=0.01), np.array([WIDTH, WIDTH*10e1 , math.pi*0.6, math.pi*0.6*10e1]))
+    rl_linear_controller.learn_values(pendulum, regressor,#RandomForestRegressor(n_estimators=64), 
+                                      reward, gamma=0.995, num_samples=1000, iterations=32)
+    #%% Plot values
+    values = np.array([[rl_linear_controller.learner.predict([x,0,alpha,0])[0] 
+    for x in np.arange(0,WIDTH,WIDTH/50)] for alpha in np.arange(-math.pi/2,math.pi/2,math.pi/50)])
 
-plt.subplot(132)
-plt.plot(np.arange(-math.pi/2,math.pi/2,math.pi/50),
-    np.array([rl_linear_controller.learner.predict([300,0,alpha,0])[0] for alpha in np.arange(-math.pi/2,math.pi/2,math.pi/50)]))
-plt.xlabel('alpha (rad)')
-plt.ylabel('V(alpha,x=300)')
+    plt.subplot(131)
+    plt.imshow(values,interpolation='nearest')
+    plt.xlabel('x')
+    plt.ylabel('alpha')
 
+    plt.subplot(132)
+    plt.plot(np.arange(-math.pi/2,math.pi/2,math.pi/50),
+        np.array([rl_linear_controller.learner.predict([300,0,alpha,0])[0] for alpha in np.arange(-math.pi/2,math.pi/2,math.pi/50)]))
+    plt.xlabel('alpha (rad)')
+    plt.ylabel('V(alpha,x=300)')
 
-plt.subplot(133)
-plt.plot(np.arange(0,WIDTH,WIDTH/50),
-    np.array([rl_linear_controller.learner.predict([x,0,0,0])[0] for x in np.arange(0,WIDTH,WIDTH/50)]))
-plt.xlabel('x (pix)')
-plt.ylabel('V(x,alpha=0)')
+    plt.subplot(133)
+    plt.plot(np.arange(0,WIDTH,WIDTH/50),
+        np.array([rl_linear_controller.learner.predict([x,0,0,0])[0] for x in np.arange(0,WIDTH,WIDTH/50)]))
+    plt.xlabel('x (pix)')
+    plt.ylabel('V(x,alpha=0)')
 
-#%%
-display.run()
+    #%%
+    display.run()
