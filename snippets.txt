@@ -1,0 +1,4 @@
+# open new console within program
+# with old variables
+import code
+code.interact(local=locals())
