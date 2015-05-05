@@ -266,11 +266,11 @@ def reward(state):
 display = Display()
 pendulum = Pendulum()
 pendulum.randomize()
-key_controller = KeyController(display)
-pid_controller = PidController()
+# key_controller = KeyController(display)
+# pid_controller = PidController()
 display.attach_model(pendulum)
 #display.attach_controller(pid_controller) # comment to disable pid controller
-display.attach_controller(key_controller)
+# display.attach_controller(key_controller)
 
 rl_linear_controller = RlLinearController()
 display.attach_controller(rl_linear_controller)
