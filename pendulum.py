@@ -12,6 +12,9 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.svm import SVR
 import matplotlib.pyplot as plt
 
+# my imports
+import process_image
+
 WIDTH = 500
 HEIGHT = 300
 BOARD_OFFSET_BOTTOM = -10
@@ -267,8 +270,8 @@ if __name__=="__main__":
     display = Display()
     pendulum = Pendulum()
     pendulum.randomize()
-    key_controller = KeyController(display)
-    pid_controller = PidController()
+    # key_controller = KeyController(display)
+    # pid_controller = PidController()
     display.attach_model(pendulum)
     # display.attach_controller(pid_controller) # comment to disable pid controller
     # display.attach_controller(key_controller)
