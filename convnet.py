@@ -21,9 +21,19 @@ for i in xrange(10):
     screens.append(process_image.screengrab())
     time.sleep(0.1)
 
+
+
+
+
+
+
+
+#############################################################
+
 # save images
-for i in xrange(10):
-    img = Image.fromarray(screens[i])
-    img.save('screengrab{}.png'.format(i))
+# for i in xrange(10):
+#     img = Image.fromarray(screens[i])
+#     img.save('screengrab{}.png'.format(i))
+
 import code
 code.interact(local=locals())

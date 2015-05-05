@@ -1,3 +1,4 @@
-*.png
-*.jpeg
-*.pyc
+*
+!*.py
+!*.md
+!*.gitignore
